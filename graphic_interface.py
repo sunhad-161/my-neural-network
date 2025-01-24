@@ -66,18 +66,13 @@ class DigitRecognizerApp:
     
     def predict(self):
         # Преобразование изображения в формат 28x28
-        resized_image = self.image.resize((28, 28)).convert("L")  # Масштабирование и преобразование в оттенки серого
-
-        # Инверсия цветов (если требуется)
+        resized_image = self.image.resize((28, 28)).convert("L")
         image_array = 255 - np.array(resized_image, dtype=np.float32)
 
         # Нормализация в диапазон [0, 1]
         image_array /= 255.0
-
-        # Выравнивание массива в вектор
         flattened_image = image_array.flatten()
 
-        # Предсказание
         prediction = predict_digit(flattened_image)
         tk.messagebox.showinfo("Результат", f"Это цифра: {prediction}")
 
